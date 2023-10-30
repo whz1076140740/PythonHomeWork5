@@ -88,6 +88,7 @@ print(f"Total Distance: {total_distance} kilometers")
 # the result should be 13
 #
 
+
 def sum_general_int_list(lst: list) -> int:
     total = 0 #initliase total
     for item in lst: 
@@ -96,3 +97,8 @@ def sum_general_int_list(lst: list) -> int:
         elif isinstance(item, list):
             total += sum_general_int_list(item) #recursively call function if element is a list, handles nested list
     return total
+
+# Example usage:
+list_1 = [[2], 3, [[1, 2], 5]]
+result = sum_general_int_list(list_1)
+print(f"Result: {result}")  # Output: 13
