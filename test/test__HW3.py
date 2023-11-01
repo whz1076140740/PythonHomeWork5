@@ -7,7 +7,7 @@ import datetime
 import pytest
 import pytest_cov
 
-import test.HW5 as HW5
+import HW5
 
 # 1)
 # Create a function called "count_simba" that counts
