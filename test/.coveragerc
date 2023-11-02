@@ -1,0 +1,11 @@
+[pytest]
+
+#test path
+#--cov=test
+
+#report type
+#--cov-report=xml
+
+
+#test goes fail if under %
+#--cov-fail-under = 80

@@ -4,7 +4,8 @@ import unittest
 #pytest test with function start from head of test
 import pytest_cov
 
-import hw4
+
+import HW5
 
 #unittest
 # with basic concepts of input and output
@@ -28,10 +29,10 @@ class TestPatient(unittest.TestCase):
     #setup contains the instantiate of tested class members
     def setUp(self):
         print("setup")
-        self.patient_Bruce = hw4.Patient("Bruce", 'fluid')
-        self.patient_Smith = hw4.Patient("Smith",['neck stiffness','irritability'])
-        self.patient_John = hw4.Patient("John", ['fever', 'cough', 'anosmia'])
-        self.patient_Saly = hw4.Patient("Saly",['fever', 'cough', 'anosmia','fever', 'cough', 'anosmia'])
+        self.patient_Bruce = HW5.Patient("Bruce", 'fluid')
+        self.patient_Smith = HW5.Patient("Smith",['neck stiffness','irritability'])
+        self.patient_John = HW5.Patient("John", ['fever', 'cough', 'anosmia'])
+        self.patient_Saly = HW5.Patient("Saly",['fever', 'cough', 'anosmia','fever', 'cough', 'anosmia'])
         #['fever', 'cough', 'anosmia']
     #in order to decrease duplicate
     #we use tearDown default method after each test_method to start test
@@ -39,10 +40,10 @@ class TestPatient(unittest.TestCase):
     def tearDown(self):
         print("teardown\n")
         #refresh test variable
-        self.patient_Bruce = hw4.Patient("Bruce", 'fluid')
-        self.patient_Smith = hw4.Patient("Smith",['neck stiffness','irritability'])
-        self.patient_John = hw4.Patient("John", ['allergies'])
-        self.patient_Saly = hw4.Patient("Saly",['fever', 'cough', 'anosmia','fever', 'cough', 'anosmia'])
+        self.patient_Bruce = HW5.Patient("Bruce", 'fluid')
+        self.patient_Smith = HW5.Patient("Smith",['neck stiffness','irritability'])
+        self.patient_John = HW5.Patient("John", ['allergies'])
+        self.patient_Saly = HW5.Patient("Saly",['fever', 'cough', 'anosmia','fever', 'cough', 'anosmia'])
 
     #test with no input of Patient instantiate
     def test_Patient_wiht_string_and_Array_instantiate(self):
@@ -125,12 +126,12 @@ class TestCard(unittest.TestCase):
     #instantiate mock object
     def setUp(self):
         print("setup")
-        self.card = hw4.Card('Heart','A')
+        self.card = HW5.Card('Heart','A')
         
     def tearDown(self):
         print("teardown\n")
         #refresh test variable
-        self.card = hw4.Card('Heart','A')
+        self.card = HW5.Card('Heart','A')
 
     #test Card
     def test_Card_instantiate(self):
@@ -158,10 +159,10 @@ class TestEnglishDeck(unittest.TestCase):
     
     #append four suits type of cards by input Value
     def _appendCards(self, suitValue):
-        HeartsCard = hw4.Card("Hearts",suitValue)
-        DiamondsCard = hw4.Card("Diamonds",suitValue)
-        ClubsCard = hw4.Card("Clubs",suitValue)
-        SpadesCard = hw4.Card("Spades",suitValue)
+        HeartsCard = HW5.Card("Hearts",suitValue)
+        DiamondsCard = HW5.Card("Diamonds",suitValue)
+        ClubsCard = HW5.Card("Clubs",suitValue)
+        SpadesCard = HW5.Card("Spades",suitValue)
 
         self._cards.append(HeartsCard)
         self._cards.append(DiamondsCard)
@@ -193,18 +194,18 @@ class TestEnglishDeck(unittest.TestCase):
         print("setup")
         self._cards = []
         self.createDeck()
-        self.englishdeck = hw4.EnglishDeck()
+        self.englishdeck = HW5.EnglishDeck()
         
     def tearDown(self):
         print("teardown\n")
         #refresh test variable
         self._cards = []
         self.createDeck()
-        self.englishdeck = hw4.EnglishDeck()
+        self.englishdeck = HW5.EnglishDeck()
 
     #test EnglishDeck instantiate
     def test_EnglishDeck_instantiate(self):
-        engdeck = hw4.EnglishDeck()
+        engdeck = HW5.EnglishDeck()
         
         for i in range(len(self._cards)):
             self.assertEqual(engdeck._cards[i].accessSuit(),self._cards[i].accessSuit())
@@ -213,7 +214,7 @@ class TestEnglishDeck(unittest.TestCase):
    
     #test EnglishDeck shuffle
     def test_EnglishDeck_shuffle(self):
-        engdeck = hw4.EnglishDeck()
+        engdeck = HW5.EnglishDeck()
         engdeck.shuffle()
         
         self.assertNotEqual([engdeck._cards[0].accessSuit(),engdeck._cards[0].accessValue()],
@@ -221,14 +222,77 @@ class TestEnglishDeck(unittest.TestCase):
 
     #test EnglishDeck draw
     def test_EnglishDeck_draw(self):
-        engdeck = hw4.EnglishDeck()
+        engdeck = HW5.EnglishDeck()
         for i in range(10):
             engdeck.draw()
             self._cards.pop(0)
-        
         for i in range(len(self._cards)):
             self.assertEqual(engdeck._cards[i].accessSuit(),self._cards[i].accessSuit())
             self.assertEqual(engdeck._cards[i].accessValue(),self._cards[i].accessValue())
+
+        #total cards is 52
+        # #the 53 times draw will touch the situation that no cards to draw
+        for i in range(52-10+1):
+            engdeck.draw()
+            if i != 42:
+                self._cards.pop(0)
+        
+
+#########################  Quetion3 ##################################
+from math import pi,sqrt
+class TestPlaneFigure_subclasses(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        print("setUpClass")
+    @classmethod
+    def tearDownClass(cls):
+        print("tearDownClass")
+
+    #instantiate mock object
+    def setUp(self):
+        print("setup")
+        self.rectangle = HW5.Rectangle(a=5,b=6)
+        self.triangle = HW5.Triangle(base=3,c1=4,c2=5,h=4)
+        self.circle = HW5.Circle(radius=6)
+        
+    def tearDown(self):
+        print("teardown\n")
+        #refresh test variable
+        self.rectangle = HW5.Rectangle(a=5,b=6)
+        self.triangle = HW5.Triangle(base=3,c1=4,c2=5,h=4)
+        self.circle = HW5.Circle(radius=6)
+
+    #test Rectangle
+    def test_Rectangle_perimeter_and_surface(self):
+        a=5
+        b=6
+        perimeter=(a+b)*2
+        self.assertEqual(self.rectangle.compute_perimeter(),perimeter)
+
+        surface=a*b
+        self.assertEqual(self.rectangle.compute_surface(),surface)
+
+    #test Triangle
+    def test_Triangle_perimeter_and_surface(self):
+        base=3; h=4
+        c1=4; c2=5
+        perimeter=base+c1+c2
+        self.assertEqual(self.triangle.compute_perimeter(),perimeter)
+
+        surface=base*h/2
+        self.assertEqual(self.triangle.compute_surface(),surface)
+
+    #test Circle
+    def test_Circle_perimeter_and_surface(self):
+        radius = 6
+        perimeter=2*pi*radius
+        self.assertEqual(self.circle.compute_perimeter(),perimeter)
+
+        surface=pi*radius*radius
+        self.assertEqual(self.circle.compute_surface(),surface)
+    
+
 #several files---make sure its our file
 if __name__ == '__main__':
     unittest.main()
